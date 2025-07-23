@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
 from flask_mail import Mail, Message
 import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Loads variables from .env into environment locally
 
 app = Flask(__name__)
 
-# Config from environment variables or directly here for testing
 app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
 app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
@@ -23,11 +25,7 @@ def send_email():
             sender=app.config['MAIL_USERNAME'],
             recipients=[os.getenv('TO_EMAIL')]
         )
-        
-        # Add Reply-To header so you can reply directly to client email
         msg.reply_to = data.get('email')
-        
-        # Create a styled HTML body
         msg.html = f"""
         <div style="font-family: Arial, sans-serif; color: #333;">
           <h2 style="color: #2E86C1;">New Internet Plan Inquiry</h2>
