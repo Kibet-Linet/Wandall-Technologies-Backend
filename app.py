@@ -1,11 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_mail import Mail, Message
+from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 
-load_dotenv()  # Loads variables from .env into environment locally
+load_dotenv()  # Load env vars from .env
 
 app = Flask(__name__)
+
+# Enable CORS for your frontend origin(s)
+CORS(app, origins=["http://127.0.0.1:5173", "http://localhost:5173"])
 
 app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
 app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))
