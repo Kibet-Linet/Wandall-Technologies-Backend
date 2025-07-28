@@ -9,7 +9,10 @@ load_dotenv()  # Load env vars from .env
 app = Flask(__name__)
 
 # Enable CORS for your frontend origin(s)
-CORS(app, origins=["https://wandall-technologies.onrender.com"], supports_credentials=True)
+CORS(app, origins=[
+    "https://wandalltechnologies.com",
+    "https://www.wandalltechnologies.com"  
+])
 app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
 app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
